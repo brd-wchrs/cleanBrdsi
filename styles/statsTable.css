@@ -1,0 +1,106 @@
+/*
+  statsTable.css
+  Styles for all tables used across brdsi
+  Updated to use a more flat design
+  Inspiration from http://www.commentredirect.com/modern-table-css/
+  Brianna Gainley
+  Spring 2014
+*/
+
+/* flat table main styles, used for all but the days of the week table */
+.flat-table {
+	margin-bottom: 20px;
+	border-collapse:collapse;
+	font-family: 'Lato', Calibri, Arial, sans-serif;
+	font: 500 12px/20px 'Lato', sans-serif;
+	  border: none;
+            border-radius: 3px;
+           -webkit-border-radius: 3px;
+           -moz-border-radius: 3px;
+}
+.flat-table tr:first-child td {
+	font-weight: normal;
+	-webkit-font-smoothing: antialiased;
+	padding: 1em;
+	color: rgba(0,0,0,0.45);
+	text-shadow: 0 0 1px rgba(0,0,0,0.1);
+	font-size: 1.5em;
+}
+.flat-table th, .flat-table td {
+	box-shadow: inset 0 -1px rgba(0,0,0,0.25), 
+		inset 0 1px rgba(0,0,0,0.25);
+}
+.flat-table th {
+	font-weight: normal;
+	-webkit-font-smoothing: antialiased;
+	padding: 1em;
+	color: rgba(0,0,0,0.45);
+	text-shadow: 0 0 1px rgba(0,0,0,0.1);
+	font-size: 1.5em;
+}
+.flat-table td {
+	color: #f7f7f7;
+	padding: 0.7em 1em 0.7em 1.15em;
+	text-shadow: 0 0 1px rgba(255,255,255,0.1);
+	font-size: 1.4em;
+}
+.flat-table tr {
+	-webkit-transition: background 0.3s, box-shadow 0.3s;
+	-moz-transition: background 0.3s, box-shadow 0.3s;
+	transition: background 0.3s, box-shadow 0.3s;
+}
+
+.flat-table-2 tr:hover {
+	background: rgba(0,0,0,0.1);
+}
+.flat-table-2 {
+	background: #f06060;
+}
+/* end flat table css */
+
+/* days of the week table styles */
+/* individual styles per row to align with the corresponding pie chart */
+.weekStats {
+	height:  200px;
+	margin-top: 125px;
+}
+.weekStats tr:nth-child(2) td {
+	background-color: #D97041;
+	color: #ffffff;
+}
+
+.weekStats tr:nth-child(3) td {
+	background-color: #C7604C;
+	color: #ffffff;
+}
+
+.weekStats tr:nth-child(4) td {
+	background-color: #21323D;
+	color: #ffffff;
+}
+
+.weekStats tr:nth-child(5) td {
+	background-color: #9D9B7F;
+	color: #ffffff;
+}
+
+.weekStats tr:nth-child(6) td {
+	background-color: #7D4F6D;
+	color: #ffffff;
+}
+
+.weekStats tr:nth-child(7) td {
+	background-color: #584A5E;
+	color: #ffffff;
+}
+
+.weekStats tr:nth-child(8) td {
+	background-color: #69D2E7;
+	color: #ffffff;
+}
+/* end days of the week table styles */
+
+/* aligns all table text center */
+#trendDiv td{
+	text-align: center;
+}
