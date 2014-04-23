@@ -1,8 +1,18 @@
 <?php
 
+/**
+ * Alan Estrada
+ * trendLook.php
+ * 
+ * This script accepts three uri arguments, queries twitter, and generates 
+ * html.
+ * 
+ * 
+ */
+
     // code to Get the tweets
 
-    /* This is from Alan's code! */
+    /* (This is from Alan's code) */
 
     require_once('TwitterAPIExchange.php');
 
@@ -14,8 +24,6 @@
       'consumer_secret'     => "atcvh1uWEdNNZ2hnlUrcrFuE1yTqlnRHDpToVxik"
     );
 
-
-    // todo: add location choosing.
 
     /** Now we create the URL that requests the trends of the WOEid **/
     $url = 'https://api.twitter.com/1.1/trends/closest.json';
@@ -29,36 +37,35 @@
     $radius     = isset( $_GET['rad'] ) ? $_GET['rad'] : "500"    ;
 
     $getfield = '?lat=' . $latitude . '&long=' . $longitude ;
-	$requestMethod = 'GET';
+    $requestMethod = 'GET';
  
-  echo "<!-- using $getfield -->";
+    echo "<!-- using $getfield -->";
 
     $closestJSON = json_decode( $twitter->setGetfield($getfield)
                                 ->buildOauth($url, $requestMethod)
                                 ->performRequest(),true);
  
-//	var_dump( $closestJSON ) ;
+    //var_dump( $closestJSON ) ;
     
     $url = 'https://api.twitter.com/1.1/trends/place.json';
     $getfield = '?id=' . $closestJSON[0]['woeid'] ;
 
-	$trendsJSON = json_decode( $twitter->setGetfield($getfield)
-                               ->buildOauth($url, $requestMethod)
-                               ->performRequest(),true);
+    $trendsJSON = json_decode( $twitter->setGetfield($getfield)
+                                 ->buildOauth($url, $requestMethod)
+                                 ->performRequest(),true);
 
-    // NRS: April 9: have this script just return the json
-    // echo $resultJSON;
-    
-    // more alan code
-	// all of this is alan code now, bro
-	  
 
-    echo "It seems like the closest place with trending information is at the" .
-         " <span class='highlight'>WOEid: " . $closestJSON[0]['woeid'] . "</span> which is in the country <span class='highlight'>" .
-         $closestJSON[0]['country'] . "</span>";
 
-	echo '<div class="center">';
-	echo '<div class="statsTable">';
+// NRS: 4/22/2014: moved this up so that the paragraph would be inside it
+  
+  	echo '<div class="center">';
+
+  
+    /* this is where the paragraph was */
+
+    /* this is where <div class=center> was */
+
+    echo '<div class="statsTable">';
     echo '<table id="trendTable" class="flat-table flat-table-2">';
     echo '<tr><td>';
     echo "Trends for your region";
@@ -91,7 +98,17 @@
     } 
     echo '</table>';
     echo '</div>';
+    
+    // NRS: 4/22/2014: adding paragraph tags to this
+    /*echo "<p>It seems like the closest place with trending information is at the" .
+         " <span class='highlight'>WOEid: " . $closestJSON[0]['woeid'] . "</span> which is in the country <span class='highlight'>" .
+         $closestJSON[0]['country'] . "</span></p>";*/
+    
+    echo "<p>The closest place with trending information is in the country <span class='highlight'>" ,
+         $closestJSON[0]['country'] , "</span></p>";
+    
     echo '</div>';
+    
 
 	/** old stuff
     echo '<table>';

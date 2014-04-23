@@ -30,7 +30,6 @@
 
         <!-- Google Fonts -->
         <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
 
         <script src="scripts/Chart.js" type="text/javascript"></script>
 
@@ -39,6 +38,8 @@
     </head>
     <body>
 
+      
+      
 		<div class="container">
       <div id="top-navbar">
 				<a href="bees.php"><img src="images/brdsiLogo.png"></a>
@@ -58,7 +59,7 @@
               <td><input type="text" name="screenname" value="<?php echo isset($_POST['screenname']) ? $_POST['screenname'] : "" ; ?>"></td>
             </tr>
             <tr>
-              <td>(If you don't know where to start, try searching "<span class="highlight">katyperry</span>")</td>
+              <td>(If you don't know where to start, try searching "<span class="highlight">KatyPerry</span>")</td>
             </tr>
           </table>
 		    </form>
@@ -308,8 +309,13 @@
 		      $date = $json[$tweetNum]["created_at"] ;
 		      $fDate = date('F j, Y, g:ia', strtotime($date)) ;
 		      $topFavoritedTweets[] = array( "text" => $json[$tweetNum]["text"],
-		                                     "created_at" => $fDate,
-			                             "favorite_count" => $json[$tweetNum]["favorite_count"] ) ;
+                                "created_at" => $fDate,
+                                "favorite_count" => $json[$tweetNum]["favorite_count"],
+                                "username" => $json[$tweetNum]["user"]["name"],
+                                "profile_img" => $json[$tweetNum]["user"]["profile_image_url"],
+                                "user_id" => $json[$tweetNum]["user"]["id_str"],
+                                "tweet_id" => $json[$tweetNum]["id_str"]
+                              ) ;
 		    }
 
         profileEventCompleted("tweet analysis");
@@ -345,11 +351,11 @@
 		    //echo "Judging from " . $query . "'s tweets from " . $f_beginDate . " to " . $f_endDate . "..." ;
 		    echo "<div class='section group'>" ;
 		    echo "<div class='col span_1_of_3'>" ;
-		    echo "In these <span class='highlight'>" . number_format($totalDays, 0) . "</span> days ..." ;
+		    echo "In the past <span class='highlight'>" . number_format($totalDays, 0) . "</span> days ..." ;
 
 		    echo "<br><br>" ;
-		    echo "Initial statistics: <br>" ;
-		    echo $query . " makes <span class='highlight'>" . $tweetsPerDay . "</span> tweets per day.<br>" ;
+//		    echo "Initial statistics: <br>" ;
+		    echo $query . " made <span class='highlight'>" . $tweetsPerDay . "</span> tweets per day.<br>" ;
 		    echo "<span class='highlight'>" . $retweets . "%</span> of " . $query . "'s tweets are retweets.<br>" ;
 		    echo "<span class='highlight'>" . $replies . "%</span> of " . $query . "'s tweets are replies.<br>" ;
 		    echo $query . " used <span class='highlight'>" . $hashtags . " </span>hashtags and mentioned <span class='highlight'>" .
@@ -364,7 +370,9 @@
 
 		    foreach ( $topFavoritedTweets as $tweet ) {
 		      if ( $tweet["favorite_count"] > 0 ) {
-     	        echo '<tr><td>' . $tweet["text"] . '</td>' ;
+              $tweetLink = 'https://twitter.com/' . $tweet["user_id"] . '/statuses/' . $tweet["tweet_id"] ;
+              echo '<tr class="favoritedTweetRow" onclick="window.document.location=\'' . $tweetLink . '\'">' ;
+     	        echo '<td>' . $tweet["text"] . '</td>' ;
 	            echo '<td>' . $tweet["created_at"] . '</td>' ;
 		        echo '<td>' . $tweet["favorite_count"] . '</td></tr>' ;
 		      }

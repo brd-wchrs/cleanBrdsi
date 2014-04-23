@@ -23,7 +23,7 @@
   font-family: sans-serif;
   /*text-shadow: 4px 4px 2px rgba(150, 150, 150, 0.27);*/
   color: #000;
-    -webkit-transition: -webkit-transform .1s ease-in-out; /* to change the color of hovered hexes */
+    -webkit-transition: -webkit-transform .2s ease-in-out; /* to change the color of hovered hexes */
   
 }
 
@@ -39,7 +39,9 @@
 /* hex container styles (body of the page */
 .honeycombs .honeycombs-inner-wrapper {
   display: inline-block;
-  overflow: hidden;
+  
+  /* NRS 4/22/2014: removing this prevents clipping hexagons off the bottom */
+  /*overflow: hidden;*/
   width: 700px;
   position: relative;
   height: 1200px;

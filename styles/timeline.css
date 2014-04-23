@@ -4,6 +4,8 @@
   Mostly repsonsive grid styles and wordcloud styles
   Brianna Gainley
   Spring 2014
+
+  Edited by Alan Estrada at 4/22/14 with Nick Ver Voort's help
 */
 
 /*  GRID OF TWO   ============================================================================= */
@@ -81,4 +83,15 @@ input[type=text] {
 /* vertically center bar charts within their divs */
 .barCharts {
 	margin-top: 100px;
+}
+
+/* changing the pointer to a clicky thing for the Top Favorited Tweets table */
+.favoritedTweetRow:hover
+{
+    cursor:pointer;
+}
+
+/* making the pictures in each tweet row vertically aligned in the middle */
+.favoritedTweetRow td {
+    vertical-align: middle;
 }

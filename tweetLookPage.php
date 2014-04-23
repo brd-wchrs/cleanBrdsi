@@ -11,12 +11,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>brdsi - A Twitter Analysis Tool</title>
         <meta name="description" content="Twitter trend analysis, delivered right to your screen">
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport"    content="width=device-width">
 
         <!-- stylesheets -->
         <link rel="stylesheet" href="styles/reset.css">
         <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="styles/homeycombs.css">
+        <!--link rel="stylesheet" href="styles/homeycombs.css"-->
         <link rel="stylesheet" href="styles/statsTable.css">
         <!-- *********** -->
 
@@ -25,28 +25,62 @@
 
         <!-- Google Fonts -->
       	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
-      	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
         <!-- endbuild -->
 
         <!-- jQuery -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="scripts/honey.js"></script>
+        <!--script src="scripts/honey.js"></script-->
 
-        <!-- For hexagon script -->
+        <!-- For back button  -->
         <script type="text/javascript">
-            // this makes the honeycombs look like honeycombs.
-            // it runs after page load.
-             $(function () {
-                console.log("Running homeyComb!!!!!");
-                $('.honeycombs').honeycombs({
-                combWidth: 200,
-                margin: 10
-                });
-             });
+            
+            // on page load, set an onclick function for the Back button
+            $(function(){
+              $("#backButton").click(function(){
+                console.log("Backbutton callback running");
+                window.history.back();
+              });
+            });
+            
         </script>
-        <style>
-          /* someone fixme */
-        body{ margin-bottom: 40px; }
+        <style> 
+          
+          /* page-too-short fix */
+          body { margin-bottom: 40px; }
+          
+          /* style our back button */
+          #backButton { 
+
+            position:  fixed;
+            left:      12px;
+            top:       45%;
+            
+            color:          #ff6969;
+            border:         #FF6969 thin solid;
+            border-radius:  8px;
+            padding:        1px 4px;
+            
+          }
+
+          /* back button hover style */
+          #backButton:hover { 
+
+            background-color: white;
+            color:            #E33;
+            border:           #E33 thin solid;
+            cursor:           pointer;
+
+          }
+
+          /** 
+           * fix to make the table cells the correct height, and
+           * make the cell contents align
+          **/
+          .statsTable td{
+            
+            vertical-align: middle;
+          }
+            
         </style>
     </head>
 
@@ -65,6 +99,7 @@
           <!-- main content -->
 	        <div>
 
+            <div id="backButton">Back</div>
             <div class="center">
               <div class="statsTable">
                 <table class="flat-table flat-table-2">
@@ -125,10 +160,10 @@
                           echo '<td>' . $status['text'] . '</td></tr>';
                         }
 
-                ?>
-              </table>
+                  ?>
+                </table>
               </div>
-              </div>
+            </div>
           
           </div>
           <!-- end main content -->

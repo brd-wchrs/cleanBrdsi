@@ -42,7 +42,6 @@ if( $_GET['log'] === 'out' ){
 
         <!-- Google Fonts -->
         <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
 
         <script src="scripts/Chart.js" type="text/javascript"></script>
 
@@ -104,7 +103,7 @@ if( $_GET['log'] === 'out' ){
         {
           
           echo '<h2>Logged out successfully!</h2>
-                <p>Log in here</p>
+                <p>Please sign in to continue</p>
                 <a href="twitteroauth/redirect.php"><img src="./images/lighter.png" alt="Sign in with Twitter"/></a>
                 <br>';
           
@@ -120,7 +119,8 @@ if( $_GET['log'] === 'out' ){
             empty($_SESSION['access_token']['oauth_token_secret']))
         {
 
-          echo '<p>Log in here</p>
+          echo '<p><span class="highlight">Friend Trends</span> is a tool that aggregates data from tweets that the people you follow post and 
+                presents its findings in easy-to-read charts and tables. Please sign in to continue.</p>
                 <a href="twitteroauth/redirect.php"><img src="./images/lighter.png" alt="Sign in with Twitter"/></a>
                 <br>';
 
@@ -341,7 +341,12 @@ if( $_GET['log'] === 'out' ){
               $fDate = date('F j, Y, g:ia', strtotime($date)) ;
               $topFavoritedTweets[] = array( "text" => $json[$tweetNum]["text"],
                                              "created_at" => $fDate,
-                                       "favorite_count" => $json[$tweetNum]["favorite_count"] ) ;
+                                             "favorite_count" => $json[$tweetNum]["favorite_count"],
+                                             "username" => $json[$tweetNum]["user"]["name"],
+                                             "profile_img" => $json[$tweetNum]["user"]["profile_image_url"],
+                                             "user_id" => $json[$tweetNum]["user"]["id_str"],
+                                             "tweet_id" => $json[$tweetNum]["id_str"]
+                                           ) ;
             }
 
             profileEventCompleted("tweet analysis");
@@ -386,28 +391,31 @@ if( $_GET['log'] === 'out' ){
             //echo "Judging from " . $query . "'s tweets from " . $f_beginDate . " to " . $f_endDate . "..." ;
             echo "<div class='section group'>" ;
             echo "<div class='col span_1_of_2'>" ;
-            echo "In these <span class='highlight'>" . number_format($totalDays, 0) . "</span> days ..." ;
-
+            echo "In the past <span class='highlight'>" . number_format($totalDays, 0) . "</span> days ..." ;
             echo "<br><br>" ;
-//            echo "Initial statistics: <br>" ;
-            echo "The people you have followed mades <span class='highlight'>" . $tweetsPerDay . "</span> tweets per day.<br>" ;
-            echo "<span class='highlight'>" . $retweets . "%</span> of these tweets are retweets.<br>" ;
-            echo "<span class='highlight'>" . $replies . "%</span> of these tweets are replies.<br>" ;
-            echo "These tweets contain <span class='highlight'>" . $hashtags . " </span>hashtags and mentioned <span class='highlight'>" .
+            
+            echo "The people you have followed have made <span class='highlight'>" . $tweetsPerDay . "</span> tweets per day.<br>" ;
+            echo "<span class='highlight'>" . $retweets . "%</span> of those tweets were retweets.<br>" ;
+            echo "<span class='highlight'>" . $replies . "%</span> of those tweets were replies.<br>" ;
+            echo "These tweets contained <span class='highlight'>" . $hashtags . " </span>hashtags and mentioned <span class='highlight'>" .
                  $userMentions . "</span> users.<br>";
             echo "<br>" ;
             echo "</div>" ;
 
             echo "<div class='col span_1_of_2 flat-table flat-table-2'>" ;
             echo '<table>';
-            echo '<tr><td>Highest Favorited Tweets</td>' .
+            echo '<tr><td></td><td>User</td><td>Highest Favorited Tweets</td>' .
                      '<td>Date</td><td>Number of Favorites</td></tr>' ;
 
             foreach ( $topFavoritedTweets as $tweet ) {
               if ( $tweet["favorite_count"] > 0 ) {
-                  echo '<tr><td>' . $tweet["text"] . '</td>' ;
+                  $tweetLink = 'https://twitter.com/' . $tweet["user_id"] . '/statuses/' . $tweet["tweet_id"] ;
+                  echo '<tr class="favoritedTweetRow" onclick="window.document.location=\'' . $tweetLink . '\'">' ;
+                  echo '<td><img src="' . $tweet["profile_img"] . '"/></td>';
+                  echo '<td>' . $tweet["username"] . '</td>' ;
+                  echo '<td>' . $tweet["text"] . '</td>' ;
                   echo '<td>' . $tweet["created_at"] . '</td>' ;
-                echo '<td>' . $tweet["favorite_count"] . '</td></tr>' ;
+                  echo '<td>' . $tweet["favorite_count"] . '</td></tr>' ;
               }
             }
 
@@ -467,6 +475,9 @@ if( $_GET['log'] === 'out' ){
           echo "</div>" ;
           echo "</div>" ;
           echo '<br>' ;
+
+		    echo '<div class="center"><br>Here is the word cloud generated from your tweets:<br></div>' ;
+		    echo '<div id="wordcloud" class="center">Loading your wordcloud now!!!</div>' ;
 
           echo $logoutDiv;
 

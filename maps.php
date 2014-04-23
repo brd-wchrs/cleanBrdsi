@@ -28,19 +28,44 @@
 
         <!-- Google Fonts -->
     		<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
-    		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
 
         <!-- mobile fix -->
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
         <!-- inline css :3 -->
         <style type="text/css">
-		  #map-canvas { height: 500px; width: 500px; /*inline-block*/}
-          #dialog { display: none;}
+          #map-canvas { 
+            height: 500px; 
+            width: 500px; 
+
+            border: #1f435b thin solid;
+            border-radius: 5px;
+            
+            margin: 10px auto;
+
+            /*display: inline-block*/
+          }          
+          /* this starts out hidden and is unhidden by jquery after a cicrle is drawn */
+          #goButton{/*display: none;*/}
+          #dialog { 
+            
+            /*display: none;*/
+          
+          }
           #tabl, #tabl td { border: black thin solid; padding: 0px; margin: 0px;}
           body { margin-top:  10px; /* leave room for the top of the page*/ }
           .pad{ padding: 10px;}
           .space{ margin: 10px;}
+          .left, .right {
+            display: inline-block;
+            vertical-align: top;
+            max-height: 95%; 
+            max-width:  49%;
+          }
+          #trendDiv
+          {
+            overflow:   scroll;
+          }
 		    </style>
 
         <!-- jQuery -->
@@ -159,6 +184,10 @@
 		                      "\ncenter: " + activeCenter );
 
 
+              // show the submit button, now that there's data we can use
+              $("#goButton").removeAttr("disabled");
+              $("#goButton").effect("highlight");
+
 		          // update our table!
 		          /*$("#map-longitude").text(activeLongitude);
 		          $("#map-latitude").text(activeLatitude);
@@ -201,17 +230,26 @@
                           rad: activeRadius
                         },
 
-
                 success: function(data){
                   console.log("trendLook.php ajax success.");
                   $("#trendDiv").html(data);
+                  $("#trendDiv").height( Math.min(550, $(window).height() - 120));
+                  
+                  $("#trendDiv td").click(function(event){
+                  
+                    console.log(event.target.innerHTML);
+                    
+                    
+                    
+                  
+                  });
+
 
                 },
 
-
                 error: function(jqXHR, errorStr){
                   console.log("trendLook.php ajax failed: " + errorStr);
-                  $("#trendDiv").html("");
+                  $("#trendDiv").html("An error occured, please try again.");
 
                 },
 
@@ -219,7 +257,9 @@
 
               });
             }
-          };
+            
+            return;
+          }
 
           /**************  dialog functions *************/
           function dialogOK()
@@ -227,20 +267,21 @@
             console.log("dialog: OK!!");
             $( "#dialog" ).dialog( "close" );
             doServerStuff();
-          };
+          }
 
 
           function dialogCANCEL()
           {
             console.log("closing dialog map");
             $( "#dialog" ).dialog( "close" );
-          };
+          }
 
           var mapAlive = false;
  
           function setupDialog()
           {
-          
+            return;
+            /*
             if( ! mapAlive ){
                 mapAlive = true;
                 initialize(); 
@@ -260,16 +301,16 @@
                     click:  dialogCANCEL
                    }]
               });
-           
-          };
+           */
+          }
 
 		      // calls all initialization functions
 		      function initialize() {
 		          initBasic();
 		          initDrawingLibrary();
-		      };
+		      }
 
-		      //google.maps.event.addDomListener(window, 'load', initialize);
+		      google.maps.event.addDomListener(window, 'load', initialize);
 
 		    </script>
 
@@ -287,37 +328,44 @@
       </div>
 
 	  <div id="content">
-	  <div class="center">
-		<h1><span class="dark">Regional Trends</span></h1>
-		<!--aside>Drawing a Circle gets you a radius and Long/Lat. fk yesss</aside-->
-        <!-- this div is the pop-over box. it isn't in the flow. styling it is not really needed, I think. -->
-        <div id="dialog">
-           <div id="map-canvas"><!-- the map will be created here --></div>
+      <div class="center">
+        <h1><span class="dark">Regional Trends</span></h1>
+        <p>Select the circle button on the map, and draw a circle by clicking and dragging on the map.
+            Then, click the Query button beneath the map to look up trends for that region.</p>
+      </div>
+
+      <!--div id="dialog"></div-->
+      <div>
+        <div class="left">
+          <div id="map-canvas"><!-- the map will be created here --></div>
+
+          <!-- button that pops up the map -->
+          <!--button class='pad space' onclick="setupDialog();">Expand Map</button-->
+          <button disabled id="goButton" class='pad space' onclick="doServerStuff();">Query Region</button>
         </div>
+        <!-- the ajax call will create a table inside here: -->
+        <div class="right" id='trendDiv' ><!--( results will appear here )--></div>
+      </div>
+
+      <!-- debug object used to display the latitudes and longitudes from the map -->
+      <div style='display:none;'>
+         <table id="tabl">
+           <tr>
+             <td>Longitude</td>
+             <td><p id="map-longitude"></p></td>
+           </tr>
+           <tr>
+             <td>Radius</td>
+             <td><p id="map-radius"></p></td>
+           </tr>
+           <tr>
+             <td>Latitude</td>
+             <td><p id="map-latitude"></p></td>
+           </tr>
+         </table>
+       </div>
+      <!-- end debug -->
         
-        <!-- button that pops up the map -->
-        <button class='pad space' onclick="setupDialog();">Expand Map</button>
-		</div>
-		
-        <!-- debug object used to display the latitudes and longitudes from the map -->
-        <div style='display:none;'>
-				   <table id="tabl">
-				     <tr>
-				       <td>Longitude</td>
-				       <td><p id="map-longitude"></p></td>
-				     </tr>
-				     <tr>
-				       <td>Radius</td>
-				       <td><p id="map-radius"></p></td>
-				     </tr>
-				     <tr>
-				       <td>Latitude</td>
-				       <td><p id="map-latitude"></p></td>
-				     </tr>
-				   </table>
-				 </div>
-        
-         <div id='trendDiv' class="center"><p>Click the button to expand the map and draw a circle to find trends for that area.</p></div>
 		</div>
 		
       <div id="footer">
