@@ -1,0 +1,66 @@
+/*
+  timeline.css
+  Styles to be used with timeline.php
+  Mostly repsonsive grid styles and wordcloud styles
+  Brianna Gainley
+  Spring 2014
+
+  Edited by Alan Estrada at 4/22/14 with Nick Ver Voort's help
+*/
+
+/* begin wordcloud styles */
+#wordcloud {
+	width:  100%;
+}
+
+#wordcloudImg {
+  /* NRS 4/23 changed this from 700 to 800, as this is the size we request */
+	width:  800px;
+	height: 625px;  
+  /* NRS: 4/23 hotfix: adding rule to center the wordcloud  */
+  margin: 10px auto;
+  background-repeat: no-repeat;
+  
+}
+/* end wordcloud styles */
+
+/* user input form margins for alignment*/
+input[type=text] {
+	margin-left: 10px;
+}
+
+/* vertically center bar charts within their divs */
+.barCharts {
+	margin-top: 100px;
+}
+
+/* changing the pointer to a clicky thing for the Top Favorited Tweets table */
+.favoritedTweetRow:hover
+{
+    cursor:pointer;
+}
+
+/* making the pictures in each tweet row vertically aligned in the middle */
+.favoritedTweetRow td {
+    vertical-align: middle;
+}
+
+/* button styles */
+.btn {
+  position: relative;
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 16px;
+  background: #ff6969;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.btn:hover {
+  background: #eb5757;
+  text-decoration: none;
+}

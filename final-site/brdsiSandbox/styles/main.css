@@ -1,0 +1,178 @@
+/*
+  main.css
+  Brianna Gainley
+  GUI 2 with Jesse Heines
+  Spring 2014
+*/
+
+body {
+  background: #a2e2f3;
+  background-image: url('../images/ZenBG-1.png'), url('../images/ZenBG-2.png'); /* bg texture */
+  background-repeat: repeat-x, repeat;  
+  font: 700 14px/20px 'Lato', sans-serif;
+  color: #333;
+  
+  padding-top: 45px;
+  margin-bottom: 45px; /* NRS 4/20 (hooray): hoping to make the page the correct height */
+}
+
+/* begin top navbar styles */
+#top-navbar {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 45px;
+  background-color: #1f435b;
+  border-bottom: 1px solid #f4eded;
+  z-index: 10000; /* Keeps navbar sticky and on top */
+}
+
+#top-navbar ul {
+  float: right; /* Float nav items to the right side */
+}
+
+#top-navbar li {
+  float: left; /* Float each nav item left of the other */
+  list-style: none;
+  font: 300 16px/20px 'Lato', sans-serif;
+}
+
+#top-navbar li a,
+#top-navbar li a:link,
+#top-navbar li a:visited {
+  display: block;
+  line-height: 45px;
+  text-align: center;
+  width: 140px;
+  color: #fff9fb;
+  text-decoration: none;
+}
+
+#top-navbar li a:hover,
+#top-navbar li a:active {
+  color: #fff;
+  background-color: #FF6969;
+}
+
+/* styles for the brdsi logo */
+#top-navbar img {
+  padding: 4px 0 5px 5px;
+}
+/* end top navbar styles */
+
+/* begin main content styles */
+#content {
+  width: 960px;
+  padding: 15px 25px 20px 25px;
+  margin: 10px auto;
+}
+
+#content h1 {
+  font-size: 32px;
+}
+
+#content h2 {
+  font-size: 22px;
+}
+/* end main content styles */
+
+/*begin footer styles */
+#footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 30px;
+  background-color: #324D60;
+  border-top: 1px solid #f4eded;
+  z-index: 10000; /* Set to highest in all CSS files, to always stay on top, even over hovering hexagons. Kind of hackey right now. */
+}
+
+#footer p {
+  margin: 0px;
+  padding: 0px;
+}
+
+#footer ul {
+  float: right;
+  padding-right: 10px;
+  padding-top: 5px;
+}
+
+#footer li {
+  float: left;
+  padding-right: 15px;
+  list-style: none;
+  font: 100 12px/16px 'Lato', sans-serif;
+}
+
+#footer li a,
+#footer li a:link,
+#footer li a:visited {
+  font: 100 12px/16px 'Lato', sans-serif;
+  text-decoration: none;
+  color: #ffffff;
+}
+/* end footer styles */
+
+.center {
+  width: 50%;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.highlight {
+  color:  #ff6969;
+}
+
+.dark {
+  color: #1f435b;
+}
+/*************************** NICK 4/14/14 ****************************/
+/*                styles for the home page!                          */
+
+#letsGo {
+  color:          #ff6969;
+  border:         #FF6969 thin solid;
+  border-radius:  10px;
+  width: 200px;
+}
+
+#letsGo a {
+  text-decoration: none;
+  color: #ff6969;
+}
+
+#title {
+  font-size:  42pt;
+  color:      #FF6969;
+}
+
+/*********************************************************************/
+
+
+#contentDiv
+{
+   height:  100%;
+   width:   100%;
+  
+}
+
+/* button styles */
+.btn {
+  position: relative;
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 16px;
+  background: #ff6969;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.btn:hover {
+  background: #eb5757;
+  text-decoration: none;
+}
