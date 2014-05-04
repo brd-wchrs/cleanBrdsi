@@ -1,0 +1,5 @@
+﻿/* changing the pointer to a clicky thing for the Top tweets table */
+tr:hover
+{
+    cursor:pointer;
+}

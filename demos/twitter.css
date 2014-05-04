@@ -1,0 +1,46 @@
+body {
+/*    background-color: #DDF;*/
+}
+
+html * {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 12px;
+}
+
+#trendTable, #trendTable tr{
+    border: 1px solid #d3d3d3;
+    border-collapse: collapse;
+}
+
+/* fancy fading */
+.trendRow{
+    -webkit-transition: opacity .5s ease;
+    -moz-transition: opacity .5s ease;
+    -ms-transition: opacity .5s ease;
+    -o-transition: opacity .5s ease;
+    transition: opacity .5s ease; 
+    opacity: .7;
+}
+
+.trendRow:hover{
+    opacity: 1;
+}
+
+ul, li{
+    list-style-type: none;
+}
+
+.trendName{
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+#brLogo{
+    position: fixed;
+    right: 10;
+    bottom: 10;
+    z-index: -1;
+}
